@@ -1,4 +1,7 @@
+"use strict";
+
 const AWS_Client = require("../aws");
+require("dotenv").config();
 
 const UpdateApi = async (item) => {
   const params = {

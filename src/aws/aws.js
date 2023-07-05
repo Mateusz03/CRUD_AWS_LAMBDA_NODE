@@ -1,8 +1,10 @@
-const AWS = require("aws-sdk");
+"use strict";
 const config = require("./config");
+const AWS = require("aws-sdk");
 
 const awsClient = () => {
-  AWS.config.update(config);
+  const AWS_config = config;
+  AWS.config.update(AWS_config);
 
   return new AWS.DynamoDB.DocumentClient();
 };

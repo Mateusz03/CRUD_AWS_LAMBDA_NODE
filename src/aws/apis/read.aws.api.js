@@ -1,3 +1,5 @@
+"use strict";
+
 const AWS_Client = require("../aws");
 require("dotenv").config();
 
@@ -20,10 +22,8 @@ const Get = async (item) => {
     TableName: process.env.ENV_TABLE_NAME,
     Key: {
       ID: item.ID,
-      // value:item.value
     },
   };
-
   try {
     const data = await AWS_Client().get(params).promise();
     return data;

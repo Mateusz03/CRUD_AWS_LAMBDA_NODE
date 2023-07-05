@@ -1,0 +1,49 @@
+service: crud
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: eu-north-1
+  iam:
+    role:
+      statements:
+        # Allow functions to list all buckets
+        - Effect: Allow
+          Action: s3:ListBucket
+          Resource: "*"
+          # Allow functions to read/write objects in a bucket
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+            - s3:PutObject
+            - s3:GetBucketPolicy
+            - s3:PutBucketPolicy
+          Resource:
+            - arn:aws:s3:::crud-bucket2
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
+package:
+  excludeDevDependencies: false
+
+plugins:
+  - serverless-better-credentials
+  - serverless-plugin-common-excludes
+  - serverless-plugin-include-dependencies
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 2137

@@ -5,14 +5,16 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const item = {
-    ID: req.body.ID,
-    value: req.body.value,
+    ID: req?.body.ID,
+    value: req?.body.value,
   };
-  const api = await ReadApi(req.body.type, item);
 
-  if ((req.body.type === "Scan" || req.body.type === "Get") && !api.error)
-    res.send(JSON.stringify(api)).end();
-  else res.sendStatus(400).end();
+  if (req.body.type === "Scan" || req.body.type === "Get") {
+    const api = await ReadApi(req.body.type, item);
+
+    if (!api.error) res.send(JSON.stringify(api)).end();
+    else res.sendStatus(406).end();
+  } else res.sendStatus(403).end();
 });
 
 module.exports = router;

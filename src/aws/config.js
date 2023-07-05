@@ -1,5 +1,9 @@
+const dotenv = require("dotenv");
+
+dotenv.config();
+
 module.exports = {
-  region: "eu-north-1",
-  accessKeyId: "AKIA3LPKGDQXUFE6SEET",
-  secretAccessKey: "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",
+  region: process.env.ENV_REGION,
+  accessKeyId: process.env.ENV_ACCESS_KEY,
+  secretAccessKey: process.env.ENV_SECRET_ACCESS_KEY,
 };
