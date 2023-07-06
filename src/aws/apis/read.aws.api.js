@@ -6,6 +6,7 @@ require("dotenv").config();
 const Scan = async () => {
   const params = {
     TableName: process.env.ENV_TABLE_NAME,
+    ScanIndexForward: true,
   };
 
   try {
