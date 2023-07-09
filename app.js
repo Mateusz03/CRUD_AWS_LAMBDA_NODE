@@ -12,6 +12,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.post("/health", (req, res) => {
+  res.send("true").end();
+});
+
 const createRoute = require("./src/routes/create.route");
 const readRoute = require("./src/routes/read.route");
 const updateRoute = require("./src/routes/update.route");
